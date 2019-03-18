@@ -17,39 +17,28 @@ def split_num(num):
 
 def countArray(n, maxim, start, end):
 #    print('args: {},{},{},{}'.format(n, maxim, start, end))
+    print("strating n is = ", n)
     if bool_ls[n][maxim][start][end]:
         return res_ls[n][maxim][start][end]
-    if n==0:
-        bool_ls[n][maxim][start][end]=True
-        res_ls[n][maxim][start][end]=0
-        return 0
-    if n==1:
+    elif (n==0) or (n==1):
+        answer=0
+    elif n==2:
+        print('n is 2')
         if start == end:
-            bool_ls[n][maxim][start][end]=True
-            res_ls[n][maxim][start][end]=1
-            return 1
+            answer = 0
         else:
-            bool_ls[n][maxim][start][end]=True
-            res_ls[n][maxim][start][end]=0
-            return 0
-    if n==2:
-        if start == end:
-            bool_ls[n][maxim][start][end]=True
-            res_ls[n][maxim][start][end]=0
-            return 0
-        else:
-            bool_ls[n][maxim][start][end]=True
-            res_ls[n][maxim][start][end]=1
-            return 1
+            answer = 1
     else:
+        print('this should never be 2 : ', n)
         net_sum=0
         left_num, right_num = split_num(n)
         for l in range(1, maxim+1):
             net_sum=net_sum + countArray(left_num, maxim, start=start, end=l)*countArray(right_num, maxim, start=l, end=end)
-        bool_ls[n][maxim][start][end]=True
-        res_ls[n][maxim][start][end]=net_sum
-        return res_ls[n][maxim][start][end]
+        answer = net_sum
 
+    bool_ls[n][maxim][start][end]=True
+    res_ls[n][maxim][start][end]=answer
+    return answer
     # Return the number of ways to fill in the array.
 
 if __name__ == '__main__':
